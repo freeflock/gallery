@@ -1,0 +1,16 @@
+services:
+  gallery:
+    image: josiahdc/gallery
+    build:
+      context: .
+    ports:
+      - "23088:23000"
+    env_file: "./gallery.env"
+    environment:
+      STORAGE_DIRECTORY: /atelier/storage
+    volumes:
+      - gallery-storage:/atelier/
+
+volumes:
+  gallery-storage:
+    external: false
