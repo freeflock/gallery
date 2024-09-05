@@ -1,10 +1,10 @@
 services:
   gallery:
-    image: josiahdc/gallery
+    image: josiahdc/gallery:0.1
     build:
       context: .
     ports:
-      - "23088:23000"
+      - "36363:33333"
     env_file: "./gallery.env"
     environment:
       STORAGE_DIRECTORY: /atelier/storage
