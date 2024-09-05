@@ -9,7 +9,7 @@ services:
     environment:
       STORAGE_DIRECTORY: /atelier/storage
     volumes:
-      - gallery-storage:/atelier/
+      - gallery-storage:/atelier/storage
 
 volumes:
   gallery-storage:
