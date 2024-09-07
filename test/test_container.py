@@ -9,18 +9,20 @@ def test_upload_malicious_filename():
     headers = {"gallery_key": os.getenv("GALLERY_KEY")}
     with open("./painting.png", "rb") as painting_file:
         files = {"file": ("../../malicious.png", painting_file, "image/png")}
-        upload_response = requests.post("http://0.0.0.0:36363/upload",
+        upload_response = requests.post("https://0.0.0.0:36363/upload",
                                         files=files,
-                                        headers=headers)
+                                        headers=headers,
+                                        verify=False)
         assert upload_response.status_code == 400
 
 
 def test_download_insane_filename():
     load_dotenv("../gallery.env")
     headers = {"gallery_key": os.getenv("GALLERY_KEY")}
-    upload_response = requests.post("http://0.0.0.0:36363/download",
+    upload_response = requests.post("https://0.0.0.0:36363/download",
                                     json={"file_name": "../painting.png"},
-                                    headers=headers)
+                                    headers=headers,
+                                    verify=False)
     assert upload_response.status_code == 400
 
 
@@ -29,13 +31,15 @@ def test_container():
     headers = {"gallery_key": os.getenv("GALLERY_KEY")}
     with open("./painting.png", "rb") as painting_file:
         files = {"file": ("painting.png", painting_file, "image/png")}
-        upload_response = requests.post("http://0.0.0.0:36363/upload",
+        upload_response = requests.post("https://0.0.0.0:36363/upload",
                                         files=files,
-                                        headers=headers)
+                                        headers=headers,
+                                        verify=False)
         assert upload_response.status_code == 200
-        download_response = requests.post("http://0.0.0.0:36363/download",
+        download_response = requests.post("https://0.0.0.0:36363/download",
                                           json={"file_name": "painting.png"},
-                                          headers=headers)
+                                          headers=headers,
+                                          verify=False)
         assert download_response.status_code == 200
         with open("./output.png", "wb") as output_file:
             output_file.write(download_response.content)
